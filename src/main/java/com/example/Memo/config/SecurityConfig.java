@@ -84,6 +84,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     web.ignoring().antMatchers(
             "/static/**"
             , "/docs/**"
+            , "/swagger-ui.html"
+            , "/swagger**"
+            , "/swagger-resources/**"
+            , "/webjars/**"
+            , "/v2/**"
             , "/error"
             , "/member/**"
             , "/oauth2/**"

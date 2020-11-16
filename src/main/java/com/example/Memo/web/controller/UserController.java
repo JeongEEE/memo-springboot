@@ -1,5 +1,6 @@
 package com.example.Memo.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.Memo.config.auth.CustomSecurityMember;
 import com.example.Memo.config.auth.jwt.JwtTokenUtil;
 import com.example.Memo.config.auth.jwt.JwtUserDetails;
@@ -16,7 +17,6 @@ import com.example.Memo.web.dto.member.MemberJoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
