@@ -106,7 +106,7 @@ public class UserController {
   /**
    * 로그인
    */
-  @PostMapping("/member/authenticate")
+  @PostMapping("/member/login")
   public ResponseEntity<ResponseDto> authenticate(@Valid @RequestBody JwtRequestDto authenticationRequest) {
     log.info("authenticate invoked. username:" + authenticationRequest.getUsername());
     String username = authenticationRequest.getUsername();

@@ -3,6 +3,8 @@ package com.example.Memo.web.controller;
 import com.example.Memo.model.Board;
 import com.example.Memo.repository.BoardRepository;
 import com.example.Memo.web.dto.PagingDto;
+import com.example.Memo.web.dto.ResponseDto;
+import com.example.Memo.web.dto.ResponseWithObjectDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +23,7 @@ public class PageController {
 
   // '/board/page?pageNumber=1&size=10'
   @GetMapping("/board/page")
-  public Page<PagingDto> paging(@PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
+  public ResponseDto paging(@PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAll(pageRequest);
 
     Page<PagingDto> pagingList = boardList.map(
@@ -32,12 +34,13 @@ public class PageController {
                     board.getCreatedDate(),
                     board.getModifiedDate()
             ));
-    return pagingList;
+    ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(pagingList);
+    return responseWithObjectDto;
   }
 
   // '/board/page/search?title=test&content=test&pageNumber=1&size=10'
   @GetMapping("/board/page/search")
-  public Page<PagingDto> searchPaging(@RequestParam(required = false) String title, @RequestParam(required = false) String content,
+  public ResponseDto searchPaging(@RequestParam(required = false) String title, @RequestParam(required = false) String content,
                                     @PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAllSearch(title, content, pageRequest);
 
@@ -49,6 +52,7 @@ public class PageController {
                     board.getCreatedDate(),
                     board.getModifiedDate()
             ));
-    return pagingList;
+    ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(pagingList);
+    return responseWithObjectDto;
   }
 }

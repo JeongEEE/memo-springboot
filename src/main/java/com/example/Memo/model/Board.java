@@ -1,5 +1,7 @@
 package com.example.Memo.model;
 
+import com.example.Memo.web.dto.BoardDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,6 +35,7 @@ public class Board {
 
   }
 
+  @Builder
   public Board(String title, String content, String writer) {
     this.title = title;
     this.content = content;
@@ -53,5 +56,11 @@ public class Board {
   @Override
   public int hashCode() {
     return Objects.hash(id, title, content, writer);
+  }
+
+  public Board update(BoardDto newBoardDto) {
+    this.title = newBoardDto.getTitle();
+    this.content = newBoardDto.getContent();
+    return this;
   }
 }
