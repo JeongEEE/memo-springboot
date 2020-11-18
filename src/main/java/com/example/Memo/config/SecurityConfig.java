@@ -89,6 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             , "/swagger-resources/**"
             , "/webjars/**"
             , "/v2/**"
+            , "/docs/**"
             , "/error"
             , "/member/**"
             , "/oauth2/**"
