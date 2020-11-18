@@ -22,7 +22,7 @@ public class PageController {
   BoardRepository boardRepository;
 
   // '/board/page?pageNumber=1&size=10'
-  @GetMapping("/board/page")
+  @GetMapping("/get-board/page")
   public ResponseDto paging(@PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAll(pageRequest);
 
@@ -39,7 +39,7 @@ public class PageController {
   }
 
   // '/board/page/search?title=test&content=test&pageNumber=1&size=10'
-  @GetMapping("/board/page/search")
+  @GetMapping("/get-board/page/search")
   public ResponseDto searchPaging(@RequestParam(required = false) String title, @RequestParam(required = false) String content,
                                     @PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAllSearch(title, content, pageRequest);

@@ -83,13 +83,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers(
             "/static/**"
-            , "/docs/**"
-            , "/index.html"
+            , "/get-board/**"
             , "/swagger-ui.html"
             , "/swagger**"
             , "/swagger-resources/**"
             , "/webjars/**"
-            , "/v2/**"
             , "/error"
             , "/member/**"
             , "/oauth2/**"

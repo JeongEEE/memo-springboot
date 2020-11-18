@@ -22,7 +22,7 @@ public class CommentController {
     this.commentRepository = commentRepository;
   }
 
-  @GetMapping("/board/{id}/comment")
+  @GetMapping("/get-board/{id}/comment")
   public List<Comment> getBoardComments(@PathVariable Long id) {
     Board board = boardRepository.findById(id).get();
     return commentRepository.findCommentsByBoard(board);

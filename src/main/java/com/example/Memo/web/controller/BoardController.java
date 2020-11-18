@@ -20,7 +20,7 @@ public class BoardController {
     this.boardService = boardService;
   }
 
-  @GetMapping("/board")
+  @GetMapping("/get-board")
   public ResponseDto list() {
     List<BoardDto> boardDtoList = boardService.getBoardList();
     ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(boardDtoList);
@@ -33,7 +33,7 @@ public class BoardController {
     return ResponseDto.makeSuccessResponseStatus();
   }
 
-  @GetMapping("/board/{id}")
+  @GetMapping("/get-board/{id}")
   public ResponseDto findOne(@PathVariable Long id) {
     BoardDto boardDto = boardService.getBoardDto(id);
     ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(boardDto);
