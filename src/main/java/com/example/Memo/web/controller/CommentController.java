@@ -29,21 +29,21 @@ public class CommentController {
   }
 
   @PostMapping("/board/{id}/comment")
-  public Comment createComment(@PathVariable Long id, @RequestBody Comment res) {
+  public Comment createComment(@PathVariable Long id, @RequestBody Comment params) {
     Optional<Board> boardItem = boardRepository.findById(id);
-    res.setBoard(boardItem.get());
-    commentRepository.save(res);
-    return res;
+    params.setBoard(boardItem.get());
+    commentRepository.save(params);
+    return params;
   }
 
   @PutMapping("/board/{id}/comment/{commentId}")
-  public Comment updateComment(@PathVariable Long id, @PathVariable Long commentId, @RequestBody Comment res) {
+  public Comment updateComment(@PathVariable Long id, @PathVariable Long commentId, @RequestBody Comment params) {
     Optional<Board> boardItem = boardRepository.findById(id);
-    res.setBoard(boardItem.get());
+    params.setBoard(boardItem.get());
     Comment newComment = commentRepository.findById(commentId).get();
-    newComment.setTitle(res.getTitle());
-    newComment.setContent(res.getContent());
-    newComment.setWriter(res.getWriter());
+    newComment.setTitle(params.getTitle());
+    newComment.setContent(params.getContent());
+    newComment.setWriter(params.getWriter());
     return newComment;
   }
 

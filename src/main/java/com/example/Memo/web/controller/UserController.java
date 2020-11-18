@@ -56,14 +56,14 @@ public class UserController {
    * 일반 email + password 회원가입 api
    */
   @PostMapping("/member/join")
-  public ResponseEntity<ResponseDto> join(@Valid @RequestBody MemberJoinRequestDto requestDto) {
-    log.info("member join invoked. requestDto. username:" + requestDto.getEmail());
-    requestDto.checkJoinUser(secret); // merchant, deliver, customer 입력 데이터 검사
+  public ResponseEntity<ResponseDto> join(@Valid @RequestBody MemberJoinRequestDto params) {
+    log.info("member join invoked. requestDto. username:" + params.getEmail());
+    params.checkJoinUser(secret); // merchant, deliver, customer 입력 데이터 검사
     ResponseDto responseDto = ResponseDto.makeSuccessResponseStatus();
     HttpStatus responseStatus = HttpStatus.OK;
     try {
-      Member member = memberService.join(requestDto);
-      log.info("member join Success, memberId:" + member.getId() + ", username:" + requestDto.getEmail());
+      Member member = memberService.join(params);
+      log.info("member join Success, memberId:" + member.getId() + ", username:" + params.getEmail());
     } catch (DataIntegrityViolationException e) {
       log.error("member join DataIntegrityViolationException:" + e.getMessage());
       responseDto = ResponseDto.builder()
@@ -79,9 +79,9 @@ public class UserController {
    * 이메일 중복 체크 api
    */
   @PostMapping("/member/check-email")
-  public ResponseEntity<ResponseDto> checkEmail(@RequestBody JSONObject jsonObject) {
-    log.info("member checkEmail invoked. email:" + jsonObject.get("email"));
-    String email = jsonObject.get("email").toString();
+  public ResponseEntity<ResponseDto> checkEmail(@RequestBody JSONObject params) {
+    log.info("member checkEmail invoked. email:" + params.get("email"));
+    String email = params.get("email").toString();
     if (!RegexUtil.isValidEmail(email)) {
       return new ResponseEntity<>(ResponseDto.builder()
               .msg(RequestUtil.MEMBER_EMAIL_UNAVAILABLE_MSG)
@@ -107,10 +107,10 @@ public class UserController {
    * 로그인
    */
   @PostMapping("/member/login")
-  public ResponseEntity<ResponseDto> authenticate(@Valid @RequestBody JwtRequestDto authenticationRequest) {
-    log.info("authenticate invoked. username:" + authenticationRequest.getUsername());
-    String username = authenticationRequest.getUsername();
-    String password = authenticationRequest.getPassword();
+  public ResponseEntity<ResponseDto> authenticate(@Valid @RequestBody JwtRequestDto params) {
+    log.info("authenticate invoked. username:" + params.getUsername());
+    String username = params.getUsername();
+    String password = params.getPassword();
 
     ResponseDto responseDto = null;
     HttpStatus httpStatus = HttpStatus.OK;
@@ -162,9 +162,9 @@ public class UserController {
   }
 
   @PostMapping("/member/reset-password")
-  public ResponseDto resetPassword(@RequestBody JSONObject jsonpObject) {
-    log.info("resetPassword invoked. username:" + jsonpObject.get("email"));
-    String email = (String) jsonpObject.get("email");
+  public ResponseDto resetPassword(@RequestBody JSONObject params) {
+    log.info("resetPassword invoked. username:" + params.get("email"));
+    String email = (String) params.get("email");
     Member member = memberService.findMemberByUserName(email);
     String plainPassword = RandomStringUtils.randomAlphanumeric(10);
     String encryptPassword = passwordEncoder.encode(plainPassword);

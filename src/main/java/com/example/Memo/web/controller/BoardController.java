@@ -28,8 +28,8 @@ public class BoardController {
   }
 
   @PostMapping("/board")
-  public ResponseDto add(@RequestBody BoardDto boardDto) {
-    boardService.saveBoard(boardDto);
+  public ResponseDto add(@RequestBody BoardDto params) {
+    boardService.saveBoard(params);
     return ResponseDto.makeSuccessResponseStatus();
   }
 
@@ -41,7 +41,7 @@ public class BoardController {
   }
 
   @PutMapping("/board/{id}")
-  public ResponseDto update(@PathVariable Long id, @RequestBody BoardDto newBoardDto) {
+  public ResponseDto update(@PathVariable Long id, @RequestBody BoardDto params) {
 //    String title = res.get("title").toString();
 //    String content = res.get("content").toString();
 //    Optional<Board> board = boardRepository.findById(id);
@@ -49,7 +49,7 @@ public class BoardController {
 //    board.get().setContent(content);
 //    return boardRepository.save(board.get());
     Board board = boardService.getBoard(id);
-    boardService.updateBoard(board, newBoardDto);
+    boardService.updateBoard(board, params);
     return ResponseDto.makeSuccessResponseStatus();
   }
 
