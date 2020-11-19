@@ -64,7 +64,7 @@ public class SwaggerConfig {
     return new ApiInfoBuilder()
             .title("Memo Server API")
             .description("간단한 게시판 서버입니다.")
-            .version("1.0.1")
+            .version("1.0.2")
             .build();
   }
 
