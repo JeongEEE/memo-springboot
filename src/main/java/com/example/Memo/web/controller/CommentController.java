@@ -23,14 +23,12 @@ public class CommentController {
   }
 
   @GetMapping("/get-board/{id}/comment")
-  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public List<Comment> getBoardComments(@PathVariable Long id) {
     Board board = boardRepository.findById(id).get();
     return commentRepository.findCommentsByBoard(board);
   }
 
   @PostMapping("/board/{id}/comment")
-  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public Comment createComment(@PathVariable Long id, @RequestBody Comment params) {
     Optional<Board> boardItem = boardRepository.findById(id);
     params.setBoard(boardItem.get());
@@ -39,7 +37,6 @@ public class CommentController {
   }
 
   @PutMapping("/board/{id}/comment/{commentId}")
-  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public Comment updateComment(@PathVariable Long id, @PathVariable Long commentId, @RequestBody Comment params) {
     Optional<Board> boardItem = boardRepository.findById(id);
     params.setBoard(boardItem.get());
@@ -51,7 +48,6 @@ public class CommentController {
   }
 
   @DeleteMapping("/board/{id}/comment/{commentId}")
-  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public String deleteComment(@PathVariable Long id, @PathVariable Long commentId) {
     commentRepository.deleteById(commentId);
     return "Comment Delete Success!";
