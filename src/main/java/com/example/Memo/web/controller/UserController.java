@@ -26,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +57,7 @@ public class UserController {
    * 일반 email + password 회원가입 api
    */
   @PostMapping("/member/join")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseEntity<ResponseDto> join(@Valid @RequestBody MemberJoinRequestDto params) {
     log.info("member join invoked. requestDto. username:" + params.getEmail());
     params.checkJoinUser(secret); // merchant, deliver, customer 입력 데이터 검사
@@ -79,6 +81,7 @@ public class UserController {
    * 이메일 중복 체크 api
    */
   @PostMapping("/member/check-email")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseEntity<ResponseDto> checkEmail(@RequestBody JSONObject params) {
     log.info("member checkEmail invoked. email:" + params.get("email"));
     String email = params.get("email").toString();
@@ -107,6 +110,7 @@ public class UserController {
    * 로그인
    */
   @PostMapping("/member/login")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseEntity<ResponseDto> authenticate(@Valid @RequestBody JwtRequestDto params) {
     log.info("authenticate invoked. username:" + params.getUsername());
     String username = params.getUsername();
@@ -162,6 +166,7 @@ public class UserController {
   }
 
   @PostMapping("/member/reset-password")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto resetPassword(@RequestBody JSONObject params) {
     log.info("resetPassword invoked. username:" + params.get("email"));
     String email = (String) params.get("email");

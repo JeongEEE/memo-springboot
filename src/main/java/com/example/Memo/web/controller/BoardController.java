@@ -21,6 +21,7 @@ public class BoardController {
   }
 
   @GetMapping("/get-board")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto list() {
     List<BoardDto> boardDtoList = boardService.getBoardList();
     ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(boardDtoList);
@@ -28,12 +29,14 @@ public class BoardController {
   }
 
   @PostMapping("/board")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto add(@RequestBody BoardDto params) {
     boardService.saveBoard(params);
     return ResponseDto.makeSuccessResponseStatus();
   }
 
   @GetMapping("/get-board/{id}")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto findOne(@PathVariable Long id) {
     BoardDto boardDto = boardService.getBoardDto(id);
     ResponseWithObjectDto responseWithObjectDto = new ResponseWithObjectDto(boardDto);
@@ -41,6 +44,7 @@ public class BoardController {
   }
 
   @PutMapping("/board/{id}")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto update(@PathVariable Long id, @RequestBody BoardDto params) {
 //    String title = res.get("title").toString();
 //    String content = res.get("content").toString();
@@ -54,6 +58,7 @@ public class BoardController {
   }
 
   @DeleteMapping("/board/{id}")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto delete(@PathVariable Long id) {
     boardService.deleteBoard(id);
     return ResponseDto.makeSuccessResponseStatus();

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ public class PageController {
 
   // '/board/page?pageNumber=1&size=10'
   @GetMapping("/get-board/page")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto paging(@PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAll(pageRequest);
 
@@ -40,6 +42,7 @@ public class PageController {
 
   // '/board/page/search?title=test&content=test&pageNumber=1&size=10'
   @GetMapping("/get-board/page/search")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   public ResponseDto searchPaging(@RequestParam(required = false) String title, @RequestParam(required = false) String content,
                                     @PageableDefault(size = 10, sort = "createdDate") Pageable pageRequest) {
     Page<Board> boardList = boardRepository.findAllSearch(title, content, pageRequest);
